@@ -55,7 +55,7 @@ public class BorrowTransactionDTO {
     @NotNull(message = "Transaction status cannot be null")
     private TransactionStatus status;
 
-    @DecimalMin(value = "0.0", message = "Fine amount cannot be negative")
+    @NotNull(message = "Fine amount cannot be negative")
     private BigDecimal fineAmount;
 
     @Size(max = 500, message = "Notes cannot exceed 500 characters")

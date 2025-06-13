@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,6 +48,9 @@ public class Book {
 
     @Column(name = "available_copies", nullable = false)
     private Integer availableCopies;
+
+    @Column(name="loan_price", nullable=false)
+    private BigDecimal loanPrice;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp

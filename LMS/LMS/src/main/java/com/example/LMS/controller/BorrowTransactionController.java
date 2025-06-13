@@ -26,7 +26,10 @@ public class BorrowTransactionController {
     @PostMapping("/borrow")
     public ResponseEntity<ApiResponse<BorrowTransactionDTO>> borrowBook(
             @RequestParam UUID bookId,
-            @RequestParam UUID borrowerId) {
+            @RequestParam UUID borrowerId,
+            @RequestParam int days,
+            @RequestParam String card_number,
+            @RequestParam String currency) {
 
         log.info("Received request to borrow book {} by borrower {}", bookId, borrowerId);
 
@@ -41,7 +44,7 @@ public class BorrowTransactionController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        BorrowTransactionDTO transaction = borrowTransactionService.borrowBook(bookId, borrowerId);
+        BorrowTransactionDTO transaction = borrowTransactionService.borrowBook(bookId, borrowerId, days, card_number, currency);
 
         ApiResponse<BorrowTransactionDTO> response = ApiResponse.<BorrowTransactionDTO>builder()
                 .status("success")
@@ -52,7 +55,25 @@ public class BorrowTransactionController {
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+    @PostMapping("/{transactionId}/return")
+    public ResponseEntity<ApiResponse<BorrowTransactionDTO>> returnBook(
+            @PathVariable UUID transactionId,
+            @RequestParam String card_number,
+            @RequestParam String currency) {
 
+        log.info("Received return request for transaction {}", transactionId);
+
+        BorrowTransactionDTO transaction = borrowTransactionService.returnBook(transactionId, card_number, currency);
+
+        ApiResponse<BorrowTransactionDTO> response = ApiResponse.<BorrowTransactionDTO>builder()
+                .status("success")
+                .message("Book returned successfully")
+                .data(transaction)
+                .timestamp(java.time.LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
     @GetMapping("/borrower/{borrowerId}/limit")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getBorrowerTransactionLimit(
             @PathVariable UUID borrowerId) {

@@ -53,6 +53,7 @@ public class BookService {
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(author);
         book.setCategory(bookDTO.getCategory());
+        book.setLoanPrice(bookDTO.getLoanPrice());
         book.setPublicationYear(bookDTO.getPublicationYear());
         book.setAvailableCopies(bookDTO.getAvailableCopies());
         book.setTotalCopies(bookDTO.getAvailableCopies());
@@ -68,6 +69,7 @@ public class BookService {
                 book.getTitle(),
                 book.getAuthor().getName(),
                 book.getCategory(),
+                book.getLoanPrice(),
                 book.getPublicationYear(),
                 book.getAvailableCopies()
         );

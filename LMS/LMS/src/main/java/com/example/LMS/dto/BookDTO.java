@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @Data
 public class BookDTO {
@@ -31,6 +33,9 @@ public class BookDTO {
     @NotNull(message = "Category cannot be null")
     @Enumerated(EnumType.STRING)
     private BookCategory category;
+
+    @NotNull(message="Loan price cannot be null")
+    private BigDecimal loanPrice;
 
     @NotNull(message = "Publication year cannot be null")
     @Min(value = 1000, message = "Publication year must be at least 1000")
